@@ -3,9 +3,7 @@
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="gendarme" selected="True" />
-        </State>
+        <State />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />

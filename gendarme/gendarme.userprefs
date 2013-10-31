@@ -1,9 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="rules\Gendarme.Rules.Security\ArrayFieldsShouldNotBeReadOnlyRule.cs">
-    <Files>
-      <File FileName="rules\Gendarme.Rules.Security\ArrayFieldsShouldNotBeReadOnlyRule.cs" Line="26" Column="16" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State selected="True" />
