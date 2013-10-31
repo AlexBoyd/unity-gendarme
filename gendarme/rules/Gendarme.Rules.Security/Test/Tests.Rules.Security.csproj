@@ -71,10 +71,6 @@
     <Compile Include="StaticConstructorsShouldBePrivateTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\cecil\Mono.Cecil.csproj">
-      <Project>{D68133BD-1E63-496E-9EDE-4FBDBF77B486}</Project>
-      <Name>Mono.Cecil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\framework\Gendarme.Framework.csproj">
       <Project>{CD6818D5-B398-486C-B180-92A07B143AFD}</Project>
       <Name>Gendarme.Framework</Name>
@@ -86,6 +82,10 @@
     <ProjectReference Include="..\Gendarme.Rules.Security.csproj">
       <Project>{DBA3E375-ADF4-4CA3-880F-AF02DD8D5E7E}</Project>
       <Name>Gendarme.Rules.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\cecil\Mono.Cecil.csproj">
+      <Project>{D68133BD-1E63-496E-9EDE-4FBDBF77B486}</Project>
+      <Name>Mono.Cecil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
-        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="true" RelativeMakefileName="Makefile.am" ExecuteTargetName="run-test" IsAutotoolsProject="true" RelativeConfigureInPath="../../../..">
+        <MonoDevelop.Autotools.MakefileInfo IntegrationEnabled="True" RelativeMakefileName="Makefile.am" ExecuteTargetName="run-test" IsAutotoolsProject="True" RelativeConfigureInPath="../../../..">
           <BuildFilesVar />
           <DeployFilesVar />
           <ResourcesVar />
