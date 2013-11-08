@@ -6,4 +6,5 @@ AssemblyInfo.cs
 *.pidb
 *.suo
 *.user
+*.userprefs
 /_ReSharper.gendarme-win/
