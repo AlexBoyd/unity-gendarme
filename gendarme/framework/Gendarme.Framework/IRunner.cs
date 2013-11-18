@@ -80,6 +80,7 @@ namespace Gendarme.Framework {
 		void Initialize ();
 
 		void Report (Defect defect);
+        void ReportDependancy(Dependancy dependancy);
 
 		void Report (IMetadataTokenProvider metadata, Severity severity, Confidence confidence);
 		void Report (IMetadataTokenProvider metadata, Severity severity, Confidence confidence, string message);
@@ -89,6 +90,9 @@ namespace Gendarme.Framework {
 
         void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence);
         void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence, string message);
+
+        void ReportDependancy (MethodDefinition method, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence);
+		void ReportDependancy (MethodDefinition method, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string message);
      
         void TearDown ();
 	}

@@ -141,15 +141,33 @@ namespace Gendarme {
 						    }
 				    };
 
+            var dependancyQuery = from n in Runner.Dependancies
+                        group n by n.Rule into a
+                        orderby a.Key.Name
+                        select new
+                        {
+                            Rule = a.Key,
+                            Value = from o in a
+                                    group o by o.Target into r
+                                    orderby (r.Key.GetAssembly() == null ? String.Empty : r.Key.GetAssembly().Name.FullName)
+                                    select new
+                                    {
+                                        Target = r.Key,
+                                        Value = r
+                                    }
+                        };
+
 			writer.WriteStartElement ("results");
-			foreach (var value in query) {
+            foreach (var value in dependancyQuery)
+            {
 				writer.WriteStartElement ("rule");
 				CreateRuleDetails (value.Rule);
 				foreach (var v2 in value.Value) {
 					writer.WriteStartElement ("target");
 					CreateTargetDetails (v2.Target);
-					foreach (Defect defect in v2.Value) {
-						CreateElement (defect);
+                    foreach (Dependancy dependancy in v2.Value)
+                    {
+						CreateElement (dependancy);
 					}
 					writer.WriteEndElement ();
 				}
@@ -184,6 +202,19 @@ namespace Gendarme {
 			writer.WriteString (defect.Text);
 			writer.WriteEndElement ();
 		}
+
+        void CreateElement(Dependancy dependancy)
+        {
+            writer.WriteStartElement("dependancy");
+            writer.WriteAttributeString("Severity", dependancy.Severity.ToString());
+            writer.WriteAttributeString("Confidence", dependancy.Confidence.ToString());
+            writer.WriteAttributeString("Location", dependancy.Location.ToString());
+            writer.WriteAttributeString("DependancyTarget", dependancy.DependancyTarget.ToString());
+
+            writer.WriteAttributeString("Source", dependancy.Source);
+            writer.WriteString(dependancy.Text);
+            writer.WriteEndElement();
+        }
 
 		protected override void Finish ()
 		{

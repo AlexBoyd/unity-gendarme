@@ -100,8 +100,12 @@ namespace Gendarme {
 					WriteEntry (++num, defect);
 				}
 			}
+
+            Console.WriteLine("Xmling dependancies");
+
             if (dependancyQuery.Any())
             {
+                Console.WriteLine("Xmling dependancies");
                 string name = string.Empty;
                 string delimiter = new string('-', 60);
                 foreach (Dependancy dependancy in dependancyQuery)
