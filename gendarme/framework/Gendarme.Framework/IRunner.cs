@@ -56,6 +56,8 @@ namespace Gendarme.Framework {
 		IIgnoreList IgnoreList { get; set; }
 
 		Collection<Defect> Defects  { get; }
+        Collection<Dependancy> Dependancies { get; }
+
 		int DefectsLimit { get; }
 		Bitmask<Severity> SeverityBitmask { get; }
 		Bitmask<Confidence> ConfidenceBitmask { get; }
@@ -85,6 +87,9 @@ namespace Gendarme.Framework {
 		void Report (MethodDefinition method, Instruction ins, Severity severity, Confidence confidence);
 		void Report (MethodDefinition method, Instruction ins, Severity severity, Confidence confidence, string message);
 
-		void TearDown ();
+        void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence);
+        void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence, string message);
+     
+        void TearDown ();
 	}
 }

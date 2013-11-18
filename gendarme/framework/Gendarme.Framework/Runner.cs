@@ -42,6 +42,8 @@ namespace Gendarme.Framework {
 	abstract public class Runner : IRunner {
 
 		private Collection<Defect> defect_list = new Collection<Defect> ();
+        private Collection<Dependancy> dependancy_list = new Collection<Dependancy>();
+
 		private int defects_limit = Int32.MaxValue;
 		private Bitmask<Severity> severity_bitmask = new Bitmask<Severity> (true);
 		private Bitmask<Confidence> confidence_bitmask = new Bitmask<Confidence> (true);
@@ -58,6 +60,7 @@ namespace Gendarme.Framework {
 		private IMetadataTokenProvider currentTarget;
 		private IIgnoreList ignoreList;
 		private int defectCountBeforeCheck;
+
 		private object [] engine_dependencies;
 
 		public event EventHandler<RunnerEventArgs> AnalyzeAssembly;
@@ -95,6 +98,11 @@ namespace Gendarme.Framework {
 		public Collection<Defect> Defects {
 			get { return defect_list; }
 		}
+
+        public Collection<Dependancy> Dependancies
+        {
+            get { return dependancy_list; }
+        }
 
 		public int DefectsLimit {
 			get { return defects_limit; }
@@ -239,10 +247,45 @@ namespace Gendarme.Framework {
 			Report (defect);
 		}
 
+        public virtual void ReportDependancy(Dependancy dependancy)
+        {
+            if (dependancy == null)
+                throw new ArgumentNullException("dependancy");
+
+            if (!Filter(dependancy.Severity, dependancy.Confidence, dependancy.Location))
+                return;
+
+            if (IgnoreList.IsIgnored(dependancy.Rule, dependancy.Target))
+                return;
+
+            dependancy_list.Add(dependancy);
+        }
+
+        public void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence, string message)
+        {
+            // check here to avoid creating the Defect object
+            if (!Filter(severity, confidence, metadata))
+                return;
+
+            Dependancy dependency = new Dependancy(currentRule, currentTarget, metadata, dependancyTarget, severity, confidence, message);
+            ReportDependancy(dependency);
+        }
+
+        public void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence)
+        {
+            // check here to avoid creating the Defect object
+            if (!Filter(severity, confidence, metadata))
+                return;
+
+            Dependancy dependancy = new Dependancy(currentRule, currentTarget, metadata, dependancyTarget, severity, confidence);
+            ReportDependancy(dependancy);
+        }
+
 		public void Reset ()
 		{
 			defectCountBeforeCheck = 0;
 			Defects.Clear ();
+            Dependancies.Clear();
 			SeverityBitmask.SetAll ();
 			ConfidenceBitmask.SetAll ();
 		}
@@ -273,6 +316,7 @@ namespace Gendarme.Framework {
 
 			foreach (IAssemblyRule rule in assembly_rules) {
 				defectCountBeforeCheck = Defects.Count;
+                
 				// stop if we reach the user defined defect limit
 				if (defectCountBeforeCheck >= DefectsLimit)
 					break;

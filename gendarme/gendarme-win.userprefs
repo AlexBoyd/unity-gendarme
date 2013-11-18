@@ -1,9 +1,30 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="swf-wizard-runner\Wizard.resx">
+    <Files>
+      <File FileName="rules\Gendarme.Rules.Correctness\Test\Resource.resx" Line="1" Column="1" />
+      <File FileName="framework\Gendarme.Framework\Runner.cs" Line="1" Column="1" />
+      <File FileName="framework\Gendarme.Framework\Defect.cs" Line="1" Column="1" />
+      <File FileName="rules\Gendarme.Rules.Globalization\Test\MainResourceMissing.fr.resx" Line="1" Column="1" />
+      <File FileName="swf-wizard-runner\Wizard.resx" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State />
+        <State expanded="True">
+          <Node name="Unit Tests" expanded="True">
+            <Node name="Tests.Rules.Correctness" expanded="True" />
+            <Node name="Tests.Rules.Globalization" expanded="True" />
+          </Node>
+          <Node name="gendarme" expanded="True" />
+          <Node name="Gendarme.Framework" expanded="True">
+            <Node name="Gendarme.Framework" expanded="True" />
+          </Node>
+          <Node name="swf-wizard-runner" expanded="True">
+            <Node name="Wizard.cs" expanded="True">
+              <Node name="Wizard.resx" selected="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />

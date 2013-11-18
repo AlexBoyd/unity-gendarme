@@ -67,6 +67,7 @@
     <Compile Include="Gendarme.Framework.Rocks\ParameterRocks.cs" />
     <Compile Include="Gendarme.Framework.Rocks\PropertyRocks.cs" />
     <Compile Include="Gendarme.Framework.Rocks\VariableDefinitionRocks.cs" />
+    <Compile Include="Gendarme.Framework\Dependancy.cs" />
     <Compile Include="Gendarme.Framework\Engine.cs" />
     <Compile Include="Gendarme.Framework.Engines\OpCodeEngine.cs" />
     <Compile Include="Gendarme.Framework.Helpers\OpCodeBitmask.cs" />

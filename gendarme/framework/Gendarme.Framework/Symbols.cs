@@ -190,5 +190,43 @@ namespace Gendarme.Framework {
 
 			return String.Empty;
 		}
+
+        static public string GetSource(Dependancy dependancy)
+        {
+            if (dependancy == null)
+                return String.Empty;
+
+            if (dependancy.Instruction != null)
+                return GetSource(dependancy.Instruction);
+
+            // rule didn't provide an Instruction but we do our best to
+            // find something since this is our only link to the source code
+
+            Instruction candidate;
+            TypeDefinition type = null;
+
+            // MethodDefinition, ParameterDefinition
+            //	return the method source file with (approximate) line number
+            MethodDefinition method = FindMethodFromLocation(dependancy.Location);
+            if (method != null)
+            {
+                candidate = ExtractFirst(method);
+                if (candidate != null)
+                    return FormatSource(candidate);
+
+                // we may still be lucky to find the (a) source file for the type itself
+                type = method.DeclaringType;
+            }
+
+            // TypeDefinition, FieldDefinition
+            //	return the type source file (based on the first ctor)
+            if (type == null)
+                type = FindTypeFromLocation(dependancy.Location);
+            candidate = ExtractFirst(type);
+            if (candidate != null)
+                return FormatSource(candidate);
+
+            return String.Empty;
+        }
 	}
 }

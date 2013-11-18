@@ -80,6 +80,10 @@ namespace Gendarme {
 			var query = from n in Runner.Defects
 				    orderby (int) n.Severity, n.Rule.Name
 				    select n;
+
+            var dependancyQuery = from n in Runner.Dependancies
+                                  orderby (int)n.Severity, n.Rule.Name
+                                  select n;
 			
 			WriteHeader ();
 			int num = 0;
@@ -96,6 +100,22 @@ namespace Gendarme {
 					WriteEntry (++num, defect);
 				}
 			}
+            if (dependancyQuery.Any())
+            {
+                string name = string.Empty;
+                string delimiter = new string('-', 60);
+                foreach (Dependancy dependancy in dependancyQuery)
+                {
+                    string rname = dependancy.Rule.Name;
+                    if (rname != name)
+                    {
+                        writer.WriteLine(delimiter);
+                        name = rname;
+                    }
+
+                    WriteDependancyEntry(++num, dependancy);
+                }
+            }
 			WriteTrailer (num);
 		}
 		
@@ -148,6 +168,50 @@ namespace Gendarme {
 			writer.WriteLine ();
 			writer.WriteLine ();
 		}
+
+        private void WriteDependancyEntry(int index, Dependancy dependency)
+        {
+            IRule rule = dependency.Rule;
+
+            BeginColor(
+                (Severity.Critical == dependency.Severity || Severity.High == dependency.Severity)
+                ? ConsoleColor.DarkRed : ConsoleColor.DarkYellow);
+            writer.WriteLine("{0}. {1}", index, rule.Name);
+            writer.WriteLine();
+            EndColor();
+
+            BeginColor(ConsoleColor.DarkRed);
+            writer.Write("Problem: ");
+            EndColor();
+            writer.Write(rule.Problem);
+            writer.WriteLine();
+
+            writer.WriteLine("* Severity: {0}, Confidence: {1}", dependency.Severity, dependency.Confidence);
+            writer.WriteLine("* Target:   {0}", dependency.Target);
+
+            if (dependency.Location != dependency.Target)
+                writer.WriteLine("* Location: {0}", dependency.Location);
+
+            writer.WriteLine("* Dependancy Target:   {0}", dependency.DependancyTarget);
+
+            string source = dependency.Source;
+            if (!String.IsNullOrEmpty(source))
+                writer.WriteLine("* Source:   {0}", source);
+
+            if (!String.IsNullOrEmpty(dependency.Text))
+                writer.WriteLine("* Details:  {0}", dependency.Text);
+            writer.WriteLine();
+
+            BeginColor(ConsoleColor.DarkGreen);
+            writer.Write("Solution: ");
+            EndColor();
+            writer.Write(rule.Solution);
+            writer.WriteLine();
+
+            writer.WriteLine("More info available at: {0}", rule.Uri.ToString());
+            writer.WriteLine();
+            writer.WriteLine();
+        }
 
 		private void WriteTrailer (int numDefects)
 		{
