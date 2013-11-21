@@ -49,7 +49,8 @@
     </Compile>
     <Compile Include="AvoidEmptyComponentsMethodsRule.cs" />
     <Compile Include="AvoidUsingFindObjectInUpdateRule.cs" />
-    <Compile Include="MethodReferenceDependancyRule.cs" />
+    <Compile Include="DependencyTypeRule.cs" />
+    <Compile Include="DependencyMethodRule.cs" />
     <Compile Include="CacheComponentLookupRule.cs" />
     <Compile Include="UseBuiltInArraysRule.cs" />
     <Compile Include="Utilities.cs" />

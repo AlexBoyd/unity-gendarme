@@ -176,7 +176,7 @@ namespace Gendarme {
             }
             foreach (var value in dependancyQuery)
             {
-				writer.WriteStartElement ("rule");
+				writer.WriteStartElement ("dependency_rule");
 				CreateRuleDetails (value.Rule);
 				foreach (var v2 in value.Value) {
 					writer.WriteStartElement ("target");
@@ -204,7 +204,13 @@ namespace Gendarme {
 		{
 			AssemblyDefinition assembly = target.GetAssembly ();
 
-			writer.WriteAttributeString ("Name", target.ToString ());
+            string targetName = target.ToString();
+            if (target is MethodDefinition)
+            {
+                targetName = (target as MethodDefinition).DeclaringType.ToString();
+            }
+
+			writer.WriteAttributeString ("Name", targetName);
 			writer.WriteAttributeString ("Assembly", assembly == null ? AssemblySet : assembly.Name.FullName);
 		}
 
@@ -221,7 +227,7 @@ namespace Gendarme {
 
         void CreateElement(Dependancy dependancy)
         {
-            writer.WriteStartElement("dependancy");
+            writer.WriteStartElement("dependency");
             writer.WriteAttributeString("Severity", dependancy.Severity.ToString());
             writer.WriteAttributeString("Confidence", dependancy.Confidence.ToString());
             writer.WriteAttributeString("Location", dependancy.Location.ToString());
