@@ -158,6 +158,22 @@ namespace Gendarme {
                         };
 
 			writer.WriteStartElement ("results");
+            foreach (var value in query)
+            {
+                writer.WriteStartElement("rule");
+                CreateRuleDetails(value.Rule);
+                foreach (var v2 in value.Value)
+                {
+                    writer.WriteStartElement("target");
+                    CreateTargetDetails(v2.Target);
+                    foreach (Defect defect in v2.Value)
+                    {
+                        CreateElement(defect);
+                    }
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+            }
             foreach (var value in dependancyQuery)
             {
 				writer.WriteStartElement ("rule");

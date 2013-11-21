@@ -91,8 +91,8 @@ namespace Gendarme.Framework {
         void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence);
         void ReportDependancy(IMetadataTokenProvider metadata, IMetadataTokenProvider dependancyTarget, Severity severity, Confidence confidence, string message);
 
-        void ReportDependancy (MethodDefinition method, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence);
-		void ReportDependancy (MethodDefinition method, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string message);
+        void ReportDependancy(IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence);
+        void ReportDependancy(IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string message);
      
         void TearDown ();
 	}

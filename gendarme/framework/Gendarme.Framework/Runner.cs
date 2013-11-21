@@ -281,23 +281,23 @@ namespace Gendarme.Framework {
             ReportDependancy(dependancy);
         }
 
-        public void ReportDependancy(MethodDefinition metadata, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence)
+        public void ReportDependancy(IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence)
         {
             // check here to avoid creating the Defect object
-            if (!Filter(severity, confidence, metadata))
+            if (!Filter(severity, confidence, dependantClass))
                 return;
 
-            Dependancy dependancy = new Dependancy(currentRule, currentTarget, metadata, dependancyTarget, ins, severity, confidence);
+            Dependancy dependancy = new Dependancy(currentRule, currentTarget, dependantClass, dependancyTarget, ins, severity, confidence);
             ReportDependancy(dependancy);
         }
 
-        public void ReportDependancy(MethodDefinition metadata, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string msg)
+        public void ReportDependancy(IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string msg)
         {
             // check here to avoid creating the Defect object
-            if (!Filter(severity, confidence, metadata))
+            if (!Filter(severity, confidence, dependantClass))
                 return;
 
-            Dependancy dependancy = new Dependancy(currentRule, currentTarget, metadata, dependancyTarget, ins, severity, confidence, msg);
+            Dependancy dependancy = new Dependancy(currentRule, currentTarget, dependantClass, dependancyTarget, ins, severity, confidence, msg);
             ReportDependancy(dependancy);
         }
 

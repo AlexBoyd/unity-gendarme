@@ -61,14 +61,14 @@ namespace Gendarme.Framework {
 		{
 		}
 
-		public Dependancy (IRule rule, IMetadataTokenProvider target, MethodDefinition location, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string text)
-			: this (rule, target, location, dependancyTarget, severity, confidence, text)
+        public Dependancy(IRule rule, IMetadataTokenProvider target, IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence, string text)
+            : this(rule, target, dependantClass, dependancyTarget, severity, confidence, text)
 		{
 			Instruction = ins;
 		}
 
-        public Dependancy(IRule rule, IMetadataTokenProvider target, MethodDefinition location, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence)
-			: this (rule, target, location, dependancyTarget, ins, severity, confidence, String.Empty)
+        public Dependancy(IRule rule, IMetadataTokenProvider target, IMetadataTokenProvider dependantClass, IMetadataTokenProvider dependancyTarget, Instruction ins, Severity severity, Confidence confidence)
+            : this(rule, target, dependantClass, dependancyTarget, ins, severity, confidence, String.Empty)
 		{
 		}
 

@@ -32,13 +32,10 @@ namespace Unity.Rules.Performance
                 MethodReference methodReference = instruction.Operand as MethodReference;
                 if ( methodReference == null ) continue;
 
-                MethodDefinition methodDef = methodReference.Resolve();
-
-                if (methodDef != method)
+                MethodReference methodDef = methodReference.Resolve();
+                if (methodDef.DeclaringType != method.DeclaringType)
                 {
-                    //Write Dependancy Report 
-                    Runner.ReportDependancy(method, methodDef.DeclaringType, Severity.Medium, Confidence.Total);
-
+                    Runner.ReportDependancy(method.DeclaringType, methodReference.DeclaringType, instruction, Severity.Medium, Confidence.Total);
                 }
             }
 
