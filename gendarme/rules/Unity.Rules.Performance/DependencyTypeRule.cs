@@ -22,6 +22,8 @@ namespace Unity.Rules.Performance
 
         void ComputeTypeDependencies(TypeDefinition type) 
         {
+            Runner.ReportDependancy(type, type, Severity.Audit, Confidence.Total);
+
             if (type.BaseType != null)
             {
                 Runner.ReportDependancy(type, type.BaseType, Severity.Critical, Confidence.Total);
